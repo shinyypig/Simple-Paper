@@ -320,7 +320,7 @@
     \newcommand{\keywords}[1]{\vskip 2ex\par\noindent\normalfont{\bfseries Keywords: } #1}
     \newcommand\figref[1]{{\bfseries Figure~\ref{#1}}}
     \newcommand\tabref[1]{{\bfseries Table~\ref{#1}}}
-    \newcommand{\ebibname}{Bibliography}
+    \newcommand{\ebibname}{Reference}
     \renewcommand{\algorithmicrequire}{\textbf{Input:}}
     \renewcommand{\algorithmicensure}{\textbf{Output:}}
 }{\relax}
