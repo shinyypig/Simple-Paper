@@ -1,4 +1,4 @@
-\section{公式、图片、表格与伪代码}
+\section{公式、图片、表格、伪代码与定理}
 本节简单介绍如何本模版下插入公式、图片、表格与伪代码。
 \subsection{公式}
 
@@ -42,7 +42,7 @@
 \begin{lstlisting}
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=0.3\textwidth]{./img/im1.pdf}
+    \includegraphics[width=.2\textwidth]{./img/im1.pdf}
     \caption{一幅图片}
     \label{fig:1}
 \end{figure}
@@ -50,7 +50,7 @@
 
 \begin{figure}[htb!]
     \centering
-    \includegraphics[width=0.3\textwidth]{./img/im1.pdf}
+    \includegraphics[width=.2\textwidth]{./img/im1.pdf}
     \caption{一幅图片}
     \label{fig:1}
 \end{figure}
@@ -58,41 +58,170 @@
 插入多张图片的代码如下：
 
 \begin{lstlisting}
-\begin{figure}[htbp!]
+\begin{figure}[htb!]
     \centering
-    \begin{subfigure}{.3\textwidth}
+    \begin{subfigure}{.2\textwidth}
         \centering
-        \includegraphics[width=.\textwidth]{./img/im1.pdf}
+        \includegraphics[width=\textwidth]{./img/im1.pdf}
         \caption{}
         \label{fig:cameraman2_1}
     \end{subfigure}
-    \begin{subfigure}{.3\textwidth}
+    \begin{subfigure}{.2\textwidth}
         \centering
-        \includegraphics[width=.\textwidth]{./img/im2.pdf}
+        \includegraphics[width=\textwidth]{./img/im2.pdf}
         \caption{}
         \label{fig:cameraman2_2}
     \end{subfigure}
-    \caption{两幅图片 (a) 原图像 (b) 平移后的图像}
+    
+    \begin{subfigure}{.2\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./img/im2.pdf}
+        \caption{}
+        \label{fig:cameraman2_3}
+    \end{subfigure}
+    \begin{subfigure}{.2\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./img/im1.pdf}
+        \caption{}
+        \label{fig:cameraman2_4}
+    \end{subfigure}
+    \caption{两幅图片 (a) 原图像 (b) 平移后的图像 (c) 平移后的图像 (d) 原图像}
     \label{fig:cameraman2}
 \end{figure}
 \end{lstlisting}
 
 \begin{figure}[htb!]
     \centering
-    \begin{subfigure}{.3\textwidth}
+    \begin{subfigure}{.2\textwidth}
         \centering
         \includegraphics[width=\textwidth]{./img/im1.pdf}
         \caption{}
         \label{fig:cameraman2_1}
     \end{subfigure}
-    \begin{subfigure}{.3\textwidth}
+    \begin{subfigure}{.2\textwidth}
         \centering
         \includegraphics[width=\textwidth]{./img/im2.pdf}
         \caption{}
         \label{fig:cameraman2_2}
     \end{subfigure}
-    \caption{两幅图片 (a) 原图像 (b) 平移后的图像}
+
+    \begin{subfigure}{.2\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./img/im2.pdf}
+        \caption{}
+        \label{fig:cameraman2_3}
+    \end{subfigure}
+    \begin{subfigure}{.2\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./img/im1.pdf}
+        \caption{}
+        \label{fig:cameraman2_4}
+    \end{subfigure}
+    \caption{两幅图片 (a) 原图像 (b) 平移后的图像 (c) 平移后的图像 (d) 原图像}
     \label{fig:cameraman2}
 \end{figure}
 
 \subsection{表格}
+
+表格插入比较简单，具体的代码如下：
+\begin{lstlisting}
+\begin{table}[htbp!]
+    \centering
+    \caption{表格}
+    \label{tab:1}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{A} & \textbf{B} & \textbf{C} \\ \hline
+        1 & 2 & 3 \\ \hline
+        4 & 5 & 6 \\ \hline
+        7 & 8 & 9 \\ \hline
+    \end{tabular}
+\end{table}
+\end{lstlisting}
+生成的表格如下：
+\begin{table}[htb!]
+    \centering
+    \caption{表格}
+    \label{tab:1}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{A} & \textbf{B} & \textbf{C} \\ \hline
+        1 & 2 & 3 \\ \hline
+        4 & 5 & 6 \\ \hline
+        7 & 8 & 9 \\ \hline
+    \end{tabular}
+\end{table}
+
+推荐到在线表格生成网站\href{https://www.tablesgenerator.com/}{tablesgenerator}快速生成表格对应的LaTeX代码。
+
+\subsection{伪代码}
+伪代码部分使用了 algorithm 和 algorithmicx 宏包，对应的关键词需要全部大写，具体的代码如下：
+
+\begin{lstlisting}
+\begin{algorithm} 
+    \caption{Calculate $y = |x|$} 
+    \label{alg:1} 
+    \begin{algorithmic}
+        \REQUIRE $x$ 
+        \ENSURE $y = |x|$ 
+        \IF{$x \geq 0$} 
+        \STATE $y = x$ 
+        \ELSE 
+        \STATE $y = -x$
+        \ENDIF
+    \end{algorithmic} 
+\end{algorithm}
+\end{lstlisting}
+生成的伪代码见\cref{alg:1}。
+
+\begin{algorithm} 
+    \caption{Calculate $y = |x|$} 
+    \label{alg:1} 
+    \begin{algorithmic}
+        \REQUIRE $x$ 
+        \ENSURE $y = |x|$ 
+        \IF{$x \geq 0$} 
+        \STATE $y = x$ 
+        \ELSE 
+        \STATE $y = -x$
+        \ENDIF
+    \end{algorithmic} 
+\end{algorithm}
+
+\subsection{定理}
+模版不仅仅支持定理，还支持引理、定义、证明等等，具体的代码如下：
+\begin{lstlisting}
+\begin{definition}
+    这是一个定义。
+    \label{def:1}
+\end{definition}
+\begin{lemma}
+    这是一个引理。
+    \label{lem:1}
+\end{lemma}
+\begin{theorem}
+    这是一个定理。
+    \label{thm:1}
+\end{theorem}
+\begin{proof}
+    这是一个证明。
+\end{proof}
+\end{lstlisting}
+编译结果如下：
+\begin{shaded}
+\begin{definition}
+    这是一个定义。
+    \label{def:1}
+\end{definition}
+\begin{lemma}
+    这是一个引理。
+    \label{lem:1}
+\end{lemma}
+\begin{theorem}
+    这是一个定理。
+    \label{thm:1}
+\end{theorem}
+\begin{proof}
+    这是一个证明。
+\end{proof}
+\end{shaded}

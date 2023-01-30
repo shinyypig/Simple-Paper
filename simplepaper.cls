@@ -243,29 +243,57 @@
     \newcommand\updatetext{日期：}%
     \newcommand{\ebibname}{参考文献}
     \renewcommand\abstractname{摘\hspace{2em}要}
+    \renewcommand{\ALG@name}{算法}
     \setlength\parindent{2\ccwd}
     \renewcommand{\abstracttextfont}{\sffamily\small\noindent\ignorespaces}
-    % 新定义命令
+    % 新定义的引用名称
     \newcommand{\keywords}[1]{\vskip2ex\par\noindent\normalfont{\bfseries 关键词: } #1}
-    \newcommand\figref[1]{{\bfseries 图~\ref{#1}}}
-    \newcommand\tabref[1]{{\bfseries 表~\ref{#1}}}
+    % \newcommand\figref[1]{{\bfseries 图~\ref{#1}}}
+    % \newcommand\tabref[1]{{\bfseries 表~\ref{#1}}}
     \renewcommand{\appendixtocname}{附录}
     \renewcommand{\appendixpagename}{附录}
     \renewcommand{\algorithmicrequire}{\textbf{输入：}}
     \renewcommand{\algorithmicensure}{\textbf{输出：}}
+    
+    \newcommand{\crefrangeconjunction}{到}
+    \newcommand{\crefpairconjunction}{和}
+    \newcommand{\crefmiddleconjunction}{，}
+    \newcommand{\creflastgroupconjunction}{和}
+
     \crefformat{definition}{\bf{定义#2#1#3}}
+    \crefrangeformat{definition}{\bf{定义#3#1#4}到\bf{#5#2#6}}
+    \crefmultiformat{definition}{\bf{定义#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
+    \crefrangemultiformat{definition}{\bf{定义#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
+
     \crefformat{theorem}{\bf{定理#2#1#3}}
-    \crefformat{exam}{\bf{例#2#1#3}}
-    \crefformat{figure}{\bf{图#2#1#3}}
-    \crefmultiformat{equation}{\bf{公式#2#1#3}}%
-        {和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
-    \crefrangemultiformat{equation}{\bf{公式#2#1#3}}%
-        {和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
-    \crefmultiformat{figure}{\bf{图#2#1#3}}%
-        {和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
-    \crefrangeformat{figure}{\bf{图#3#1#4}到\bf{#5#2#6}}
-    \crefrangeformat{equation}{\bf{公式#3#1#4}到\bf{#5#2#6}}
+    \crefrangeformat{theorem}{\bf{定理#3#1#4}到\bf{#5#2#6}}
+    \crefmultiformat{theorem}{\bf{定理#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
+    \crefrangemultiformat{theorem}{\bf{定理#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
+
+    \crefformat{lemma}{\bf{引理#2#1#3}}
+    \crefrangeformat{lemma}{\bf{引理#3#1#4}到\bf{#5#2#6}}
+    \crefmultiformat{lemma}{\bf{引理#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
+    \crefrangemultiformat{lemma}{\bf{引理#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
+
+    \crefformat{algorithm}{\bf{算法#2#1#3}}
+    \crefrangeformat{algorithm}{\bf{算法#3#1#4}到\bf{#5#2#6}}
+    \crefmultiformat{algorithm}{\bf{算法#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
+    \crefrangemultiformat{algorithm}{\bf{算法#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
+
     \crefformat{equation}{\bf{式#2#1#3}}
+    \crefrangeformat{equation}{\bf{式#3#1#4}到\bf{#5#2#6}}
+    \crefmultiformat{equation}{\bf{式#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
+    \crefrangemultiformat{equation}{\bf{式#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
+
+    \crefformat{figure}{\bf{图#2#1#3}}
+    \crefrangeformat{figure}{\bf{图#3#1#4}到\bf{#5#2#6}}
+    \crefmultiformat{figure}{\bf{图#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
+    \crefrangemultiformat{figure}{\bf{图#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
+
+    \crefformat{table}{\bf{表#2#1#3}}
+    \crefrangeformat{table}{\bf{表#3#1#4}到\bf{#5#2#6}}
+    \crefmultiformat{table}{\bf{表#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
+    \crefrangemultiformat{table}{\bf{表#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
 }{\relax}
 
 % 设置英文环境名称
