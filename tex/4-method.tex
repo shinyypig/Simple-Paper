@@ -1,0 +1,191 @@
+\section{Method}
+In some applications, there could exist outliers in all graphs to be matched, and the number of inliers is also unknown. In \cref{fig:4.0}, we present a simple example, where there exist two inliers and one outlier in all graphs to be matched. For simplicity, we only consider the node-to-node similarities. It can be found that in \cref{fig:4.0.1}, the two inliers are correctly matched, but the value of the corresponding objective function is $3+3+0.9=6.9$, which is smaller than that of the matching result in \cref{fig:4.0.2}, i.e., $3+2.5+1.5=7$. 
+
+Meantime, if there exists any mismatch, comparing with the sum of pairwise similarities, the minimum pairwise similarity would decrease more rapidly. It can be found that if the minimum pairwise similarity is used to represent the similarity between a set of features, the value of the sum of all minimum pairwise similarities in \cref{fig:4.0.1} is $1+1+0.2=2.2$, which is larger than that in \cref{fig:4.0.2} ($1+0.7+0.4 = 2.1$). This indicates that comparing with the sum of pairwise similarities, the minimum pairwise similarity is a better measurement of the correctness of the matching results.
+
+Consequently, we design a new objective function based on the minimum pairwise similarity for the MGM problem, and present a novel algorithm to solve it. The details of the proposed method are given in the following. 
+
+\begin{figure}[htbp!]
+    \centering
+    \begin{subfigure}{.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./img/example_1.png}
+        \caption{}
+        \label{fig:4.0.1}
+    \end{subfigure}
+    \quad \quad
+    \begin{subfigure}{.3\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./img/example_2.png}
+        \caption{}
+        \label{fig:4.0.2}
+    \end{subfigure}
+    \caption{A simple demonstration of the minimum pairwise similarity. (a) Inliers are correctly matched. (b) Inliers are not correctly matched}
+    \label{fig:4.0}
+\end{figure}
+
+\subsection{Minimum Pairwise Similarity}
+To avoid the cycle-consistence problem, a reference graph is selected, and only the matching results between the reference graph and the graphs to be matched are considered. Assume that the reference graph is selected as $\mathcal G^{[r]}$, and $m$ pairwise matching results are obtained, i.e., $\{\mathbf X^{[pr]}|p= 1, \cdots, m\}$. Then, we can generate a cycle-consistent matching result by setting the matching result between $\mathcal G^{[p]}$ and $\mathcal G^{[q]}$ as $\mathbf X^{[pq]} = \mathbf X^{[pr]} \mathbf X^{[rq]}$.
+
+Given two set of matched nodes $\{\mathcal V^{[1]}_{i_1}$, $\mathcal V^{[2]}_{i_2}$, $\cdots$, $\mathcal V^{[m]}_{i_m}\}$ and $\{\mathcal V^{[1]}_{j_1}$, $\mathcal V^{[2]}_{j_2}$, $\cdots$, $\mathcal V^{[m]}_{j_m}\}$, the pairwise similarity between the edges constructed by $\{\mathcal V^{[p]}_{i_p}, \mathcal V^{[p]}_{j_p}\}$ and $\{\mathcal V^{[q]}_{i_q}, \mathcal V^{[q]}_{j_q}\}$ is given by $\mathbf K^{[pq]}_{i_p i_q,j_p j_q}$. Obviously, all possible $m(m-1)$ pairwise similarities are contained in the set $\{\mathbf K^{[pq]}_{i_p i_q,j_p j_q}| p \neq q\}$. For example, in \cref{fig:4.1}, the blue, green and red nodes in the three graphs are matched, respectively. Thus, edges formed by the green and red nodes are corresponding to each other, and the $3\times 2 = 6$ pairwise similarities between the three edges are $\{\mathbf K^{[12]}_{21, 32}, \mathbf K^{[23]}_{13, 21}, \mathbf K^{[31]}_{32, 13}, \mathbf K^{[21]}_{32, 21}, \mathbf K^{[32]}_{21, 13}, \mathbf K^{[13]}_{13, 32}\}$. Notice that $\mathbf K^{[12]}_{21, 32} =  \mathbf K^{[21]}_{32, 21}$, $\mathbf K^{[23]}_{13, 21} = \mathbf K^{[32]}_{21, 13}$, and $\mathbf K^{[31]}_{32, 13} = \mathbf K^{[13]}_{13, 32}$, therefore, the symmetric items are not included in \cref{fig:4.1}.
+\begin{figure}[htb!]
+    \centering
+    \begin{subfigure}{.28\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./img/unaranged.png}
+        \caption{}
+        \label{fig:4.1}
+    \end{subfigure}
+    \begin{subfigure}{.34\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{./img/aranged.png}
+        \caption{}
+        \label{fig:4.2}
+    \end{subfigure}
+    \caption{The pairwise similarities between a set of matched features. (a) The unarranged pairwise similarities. (b) The arranged pairwise similarities.}
+\end{figure}
+
+The objective of our MGM method is to maximize the sum of the minimum pairwise similarities of all set of features, i.e.,
+\begin{equation}
+    \begin{split}
+        \arg\max & \sum_{\substack{i_r,j_r \\ \mathbf X^{[pr]}_{i_pi_r} = \mathbf X^{[pr]}_{j_pj_r} = 1 \\ \mathbf X^{[qr]}_{i_qi_r} = \mathbf X^{[qr]}_{j_qj_r} = 1}} \min_{p, q, p \neq q} \mathbf K^{[pq]}_{i_pi_q, j_pj_q}.
+        % \text{s.t. } & \mathbf X^{[pr]}_{i_pi_r} = \mathbf X^{[pr]}_{j_pj_r} = 1, \mathbf X^{[qr]}_{i_qi_r} = \mathbf X^{[qr]}_{j_qj_r} = 1 \\
+        % & \mathbf X^{[pr]} \bm 1^{[r]} = \bm 1^{[p]}, (\mathbf X^{[pr]})^{\rm T}\bm 1^{[p]} \leq \bm 1^{[r]}, \mathbf X^{[pr]} \in \{0, 1\}^{n^{[p]}_v\times n^{[r]}_v}
+    \end{split}
+    \label{eq:unarraged_obj}
+\end{equation}
+
+As can be seen in \cref{eq:unarraged_obj} that the pairwise similarities between a set of matched features could locate in different positions in the corresponding affinity matrix $\mathbf K^{[pq]}$, which is inconvenient for further calculation. To overcome this problem, we rearrange the nodes in the graphs to be matched according to the reference graph. Correspondingly, new affinity matrices can be generated, which have the following expression
+\begin{equation}
+    \begin{split}
+        & \hat{\mathbf K}^{[pq]}_{a_1a_2, b_1b_2} = \mathbf K^{[pq]}_{i_pi_q, j_pj_q}, \\
+        & \text{if } \mathbf X^{[pr]}_{i_pa_1} = \mathbf X^{[pr]}_{j_pb_1} = 1, \mathbf X^{[qr]}_{i_qa_2} = \mathbf X^{[qr]}_{j_qb_2} = 1.
+    \end{split}
+\end{equation}
+
+From \cref{fig:4.2}, it can be found that after the node rearrangement, the pairwise similarities between a set of matched features are located in the same position in the new affinity matrices, i.e., $\hat{\mathbf K}^{[pq]}_{i_ri_r,j_rj_r}$. Then, the objective function in \cref{eq:unarraged_obj} can be simplified as 
+\begin{equation}
+    \arg\max \sum_{i_r,j_r} \min_{p, q, p \neq q} \hat{\mathbf K}^{[pq]}_{i_ri_r, j_rj_r} = vec(\mathbf I)^{\rm T} \hat{\mathbf K} vec(\mathbf I),
+\end{equation}
+where $\mathbf I$ is an identity matrix, and $\hat{\mathbf K}$ is the matrix that contains the minimum pairwise similarities of all set of features:
+\begin{equation}
+    \hat{\mathbf K}_{a_1a_2,b_1b_2} = \min_{p, q, p \neq q} \hat{\mathbf K}^{[pq]}_{a_1a_2,b_1b_2}.
+\end{equation}
+
+Moreover, because all $\{\mathbf X^{[pr]}\}$ are permutation matrices, we have that only when $c_1 = i_p, c_2 = i_q, d_1=j_p, d_2=j_q$, $\mathbf X^{[pr]}_{c_1a_1}\mathbf X^{[pr]}_{d_1b_1}\mathbf X^{[qr]}_{c_2a_2}\mathbf X^{[qr]}_{d_2b_2}$ equals 1. This indicates that $\hat{\mathbf K}^{[pq]}$ can be written as follows
+\begin{equation}
+    \begin{split}
+        & \hat{\mathbf K}^{[pq]}_{a_1a_2, b_1b_2} \\
+        = & \sum_{c_1, c_2, d_1, d_2} \mathbf K^{[pq]}_{c_1c_2, d_1d_2}\mathbf X^{[pr]}_{c_1a_1}\mathbf X^{[pr]}_{d_1b_1}\mathbf X^{[qr]}_{c_2a_2}\mathbf X^{[qr]}_{d_2b_2} \\
+        = & \sum_{c_1, c_2, d_1, d_2} \mathbf K^{[pq]}_{c_1c_2, d_1d_2}(\mathbf X^{[qr]}\otimes \mathbf X^{[pr]})_{c_1c_2, a_1a_2} \\
+        & (\mathbf X^{[qr]}\otimes \mathbf X^{[pr]})_{d_1d_2, b_1b_2} \\
+        = & ((\mathbf X^{[qr]}\otimes \mathbf X^{[pr]})^{\rm T} \mathbf K^{[pq]} (\mathbf X^{[qr]}\otimes \mathbf X^{[pr]}))_{a_1a_2, b_1b_2}.
+    \end{split}
+    \label{eq:k-x}
+\end{equation}
+From \cref{eq:k-x}, it can be found that $\hat{\mathbf K}^{[pq]}$ equals $(\mathbf X^{[qr]}\otimes \mathbf X^{[pr]})^{\rm T} \mathbf K^{[pq]} (\mathbf X^{[qr]}\otimes \mathbf X^{[pr]})$, hence, the matrix $\hat{\mathbf K}$ that contains all minimum pairwise similarities can be quickly obtained by the following equation,
+\begin{equation}
+    \begin{split}
+        & \hat{\mathbf K}_{a_1a_2,b_1b_2} = \\
+        & \min_{p, q, p \neq q} ((\mathbf X^{[qr]}\otimes \mathbf X^{[pr]})^{\rm T} \mathbf K^{[pq]} (\mathbf X^{[qr]}\otimes \mathbf X^{[pr]}))_{a_1a_2,b_1b_2}.
+    \end{split}
+\end{equation}
+
+% Due to the fact that the value of the outlier-to-outlier pairwise similarity is usually close to that of the inlier-to-outlier pairwise similarity, and both of them are generally smaller
+
+% In most existing methods, the sum of all $m(m-1)$ pairwise similarities is used to represent the whole similarity between a set of features, i.e., $\sum_{p \neq q} \mathbf K^{[pq]}_{i_pi_q, j_pj_q}$. Then, the objective function in \cref{eq:mgm} can be rewritten as
+% \begin{equation}
+%     \begin{split}
+%         \text{arg}\max & \sum_{i_r,j_r} \sum_{p \neq q} \mathbf K^{[pq]}_{i_pi_q, j_pj_q} \\
+%         \text{s.t. } & \mathbf X^{[pr]}_{i_pi_r} = \mathbf X^{[pr]}_{j_pj_r} = 1, \mathbf X^{[qr]}_{i_qi_r} = \mathbf X^{[qr]}_{j_qj_r} = 1 \\
+%         & \mathbf X^{[pr]} \bm 1^{[r]} = \bm 1^{[p]}, (\mathbf X^{[pr]})^{\rm T}\bm 1^{[p]} \leq \bm 1^{[r]}, \mathbf X^{[pr]} \in \{0, 1\}^{n^{[p]}_v\times n^{[r]}_v}
+%     \end{split}
+% \end{equation}
+% In other words, most existing methods are designed to maximize the sum of the similarities of all possible matched set of features.
+
+% As we have mentioned, use the sum of all $m(m-1)$ pairwise similarities to represent the whole similarity between a set of features is not reasonable. Instead, optimizing the lowest pairwise similarity is a better choice. Therefore, the smallest value of all $m(m-1)$ pairwise similarities is used to represent the whole similarity between a set of features, and the corresponding objective function is 
+% \begin{equation}
+%     \text{arg}\max \sum_{i_r,j_r} \min(\{\mathbf K^{[pq]}_{i_pi_q, j_pj_q} | p \neq q\})
+% \end{equation}
+
+% For the convenience of calculation, we define a new affinity matrix $\hat{\mathbf K}^{[pq]}$, which has the following expression
+% \begin{equation}
+%     \hat{\mathbf K}^{[pq]}_{a_1a_2, b_1b_2} = \mathbf K^{[pq]}_{i_pi_q, j_pj_q}, \text{if } \mathbf X^{[pr]}_{i_pa_1} = \mathbf X^{[pr]}_{j_pb_1} = 1, \mathbf X^{[qr]}_{i_qa_2} = \mathbf X^{[qr]}_{j_qb_2} = 1.
+% \end{equation}
+% It can be found that $\hat{\mathbf K}^{[pq]}$ is a permutation of $\mathbf K^{[pq]}$. And after permutation, the pairwise similarities of a set of features are arranged into the same position in their corresponding affinity matrices. For example, for the edges that correspond to the edge formed by the $i_r^{th}$ and $j_r^{th}$ nodes in $\mathbf G^{[r]}$, their pairwise similarities are given by the set $\{\hat{\mathbf K}^{[pq]}_{i_ri_r, j_rj_r}| p\neq q \}$. Let $\hat{\mathbf K}$ be the element-wise minimum of all rearranged affinity matrices, i.e., 
+% \begin{equation}
+%     \hat{\mathbf K}_{a_1a_2, b_1b_2} = \min(\{\hat{\mathbf K}^{[pq]}_{a_1a_2, b_1b_2} | p \neq q\}),
+% \end{equation}
+% the objective function can be simplified as follows
+% \begin{equation}
+%     \text{arg}\max \sum_{i_r,j_r} \hat{\mathbf K}_{i_ri_r, j_rj_r} = vec(\mathbf I)^{\rm T} \hat{\mathbf K} vec(\mathbf I),
+% \end{equation}
+% where $\mathbf I$ is an identity matrix.
+
+\subsection{Optimization for MinMGM}
+
+Generally, the proposed MGM method, namely, MinMGM, is designed to solve the following optimization problem:
+\begin{equation*}
+    \begin{split}
+        \arg\max & \ J([\mathbf X^{[r1]}, \cdots, \mathbf X^{[rm]}]) = \ vec(\mathbf I)^{\rm T} \hat{\mathbf K} vec(\mathbf I)\\
+        \text{s.t. } & \mathbf X^{[pr]} \bm 1^{[r]} = \bm 1^{[p]}, (\mathbf X^{[pr]})^{\rm T}\bm 1^{[p]} \leq \bm 1^{[r]}, \\
+        & \mathbf X^{[pr]} \in \{0, 1\}^{n^{[p]}_v\times n^{[r]}_v} \\
+        & \hat{\mathbf K}_{a_1a_2,b_1b_2} = \min_{p, q, p \neq q} ((\mathbf X^{[qr]}\otimes \mathbf X^{[pr]})^{\rm T}\\
+        &  \mathbf K^{[pq]} (\mathbf X^{[qr]}\otimes \mathbf X^{[pr]}))_{a_1a_2,b_1b_2}
+    \end{split}
+    \label{eq:minmgm_obj}
+\end{equation*}
+
+Notice that any of the graphs to be matched can be selected as the reference, and the corresponding solutions could be different. In order to determine the best reference graph, the pairwise matching result matrix $\mathbf W$ is needed \cite{7001592}. Let $\mathbf U^{[r]} = [\mathbf X^{[r1]}, \cdots, \mathbf X^{[rm]}]$, which contains the pairwise matching results with $\mathcal G^{[r]}$ selected as the reference graph. Then, $r$ is set as the one corresponding to the best low-rank approximation of $\mathbf W$, i.e., $r = \arg \min_r ||\mathbf W - \mathbf U^{[r]^T} \mathbf U^{[r]}||_F$, where $||\cdot||_F$ represents the Frobenius norm. In addition, the best $\mathbf U^{[r]}$ is used as the initial solution in further optimization. Assume that there exist $n_v$ nodes in all graphs, the computational complexity of determining the best reference graph is $O(m^3 n_v)$.
+
+\begin{algorithm}[htb!]
+    \caption{The updating procedure of MinMGM.}\label{alg}
+    \begin{algorithmic}[1]
+        \REQUIRE The pairwise affinity matrices $\{\mathbf K^{[pq]}\}$ of all $m$ graphs, the pairwise matching results $\{\mathbf X^{[pq]}\}$, and the index of the reference graph $r$.
+        \ENSURE The converged the solution $\hat{\mathbf W}$.
+        \STATE Initialize: $\mathbf U'^{[r]} = \mathbf U^{[r]} = [\mathbf X^{[r1]}, \cdots, \mathbf X^{[rm]}]$.
+        \STATE \%\% Local updating.
+        \REPEAT 
+            \FOR{$p = 1:m$ and $p \neq r$}
+                \FOR{$q = 1:m$ and $q \neq p$}
+                    \STATE Set $\mathbf X^{[pr]}$ as  = $\mathbf X^{[pq]} \mathbf X^{[qr]}$
+                    \STATE Update $\mathbf X^{[pr]}$ in $\mathbf U^{[r]}$.
+                    \IF{$\mathbf U^{[r]} \neq \mathbf U'^{[r]}$ and $J(\mathbf U^{[r]}) < J(\mathbf U'^{[r]})$}
+                        \STATE Restore previous result: $\mathbf U^{[r]} = \mathbf U'^{[r]}$.
+                    \ELSE 
+                        \STATE Backup the solution: $\mathbf U'^{[r]} = \mathbf U^{[r]}$.
+                    \ENDIF
+                \ENDFOR
+            \ENDFOR
+        \UNTIL{$\mathbf U^{[r]}$ converges}
+        \STATE \%\% Global updating.
+        \REPEAT
+        \FOR{$p = 1:m$ and $p \neq r$}
+            \STATE Calculate the affinity matrix $\widetilde{\mathbf K}^{[pr]}$ according to \cref{eq:tildeK}.
+            \STATE Obtain $\mathbf X^{[pr]}$ by setting $\widetilde{\mathbf K}^{[pr]}$ as the input of a two-graph matching method.
+            \STATE Update $\mathbf X^{[pr]}$ in $\mathbf U^{[r]}$.
+            \IF{$\mathbf U^{[r]} \neq \mathbf U'^{[r]}$ and $J(\mathbf U^{[r]}) < J(\mathbf U'^{[r]})$}
+                \STATE Restore previous result: $\mathbf U^{[r]} = \mathbf U^{[r]}_{*}$.
+            \ELSE 
+                \STATE Backup the solution: $\mathbf U'^{[r]} = \mathbf U^{[r]}$.
+            \ENDIF
+        \ENDFOR
+    \UNTIL{$\mathbf U^{[r]}$ converges}
+    \STATE Calculate $\hat{\mathbf W}$ by $\hat{\mathbf W} = \mathbf U^{[r]^{\rm T}} \mathbf U^{[r]}$.
+    \end{algorithmic}
+\end{algorithm}
+
+For simplicity, the objective function of the proposed MGM method is denoted $J(\mathbf U^{[r]})$. To further maximize the objective function, two steps are included, namely the local update and global update. In the local update procedure, for any $\mathbf X^{[pq]}$ in $\mathbf W$, we update $\mathbf X^{[pr]}$ in $\mathbf U^{[pr]}$ by $\mathbf X^{[pr]} = \mathbf X^{[pq]} \mathbf X^{[qr]}$. If the objective function $J(\mathbf U^{[r]})$ increases after updating, the updated $\mathbf U^{[r]}$ will be adopted. Otherwise, the previous $\mathbf U^{[r]}$ will continue to be used. The algorithm will keep traversing all possible $p, q$ until the solution is converged. 
+
+After sufficiently utilizing the pairwise matching results in $\mathbf W$, our algorithm will further maximize the objective function based on the information contained in the affinity matrices. Inspired by \cref{eq:co}, for a specific $\mathbf X^{[pr]}$, the following affinity matrix is constructed
+\begin{equation}
+    \begin{split}
+        \widetilde{\mathbf K}^{[pr]} & = \min_{q, q \neq p} (\mathbf X^{[qr]} \otimes \mathbf I)^{\rm T} \mathbf K^{[pq]} (\mathbf X^{[qr]} \otimes \mathbf I) \\
+    \end{split}
+    \label{eq:tildeK}
+\end{equation}
+Then, $\widetilde{\mathbf K}^{[pr]}$ is used as the input of a two-graph matching method, and the matching result is used to update the $\mathbf X^{[pr]}$ in $\mathbf U^{[r]}$. Similarly, if the objective function $J(\mathbf U^{[r]})$ increases, the updated $\mathbf U^{[r]}$ will be taken. Our method will continue traversing all possible $p$, until $\mathbf U^{[r]}$ converges. Finally, a cycle-consistent pairwise matching result $\hat{\mathbf W}$ can be generated by the following equation
+\begin{equation}
+    \hat{\mathbf W} = \mathbf U^{[r]^{\rm T}} \mathbf U^{[r]}.
+\end{equation}
+The complete updating procedure of our method can be seen in \cref{alg}. It can be found that the computational complexity of the updating procedure mainly depends on the used two-graph matching method and the generation of $\hat{\mathbf K}^{[pq]}, \widetilde{\mathbf K}^{[pr]}$. Notice that $\{\mathbf X^{[pq]}\}$ are permutation matrices, thus, the computational complexity of calculating $\hat{\mathbf K}^{[pq]}$ and $(\mathbf X^{[qr]} \otimes \mathbf I)^{\rm T} \mathbf K^{[pq]} (\mathbf X^{[qr]} \otimes \mathbf I)$ can be simplified to $O(n_v^2)$. In addition, when $\mathbf X^{[pr]}$ is updated, only $m-1$ affinity matrices $\{\hat{\mathbf K}^{[pq]} |q, q \neq p\}$ need to be regenerated. Thus, the computational complexities of updating $\hat{\mathbf K}$ and $\widetilde{\mathbf K}^{[pr]}$ are both $m n_v^2$. Let $\tau_{pair}$ be the computational complexity of the used two-graph matching method, then the computational complexity of whole algorithm is $O(m^3n_v + k m^3 n_v^2 + k m^2 \tau_{pair})$, where $k$ is a parameter related to the number of iterations.
