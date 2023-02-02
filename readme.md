@@ -5,4 +5,3 @@ Simple Paper 是我基于 [ElegantPaper](https://github.com/ElegantLaTeX/Elegant
 - 使用说明可以点击这里查看[使用说明](https://github.com/shinyypig/Simple-Paper/releases/download/v0.1/SimplePaper.pdf)
 - 空白模版可以点击这里下载[SimplePaperTemplate](https://github.com/shinyypig/Simple-Paper/releases/download/v0.1/Simple.Paper.Template.zip)
 - 使用说明对应的LaTeX源码可以点击这里下载[SimplePaper](https://github.com/shinyypig/Simple-Paper/archive/refs/tags/v0.1.zip)
-

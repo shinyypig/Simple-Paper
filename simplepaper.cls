@@ -225,6 +225,7 @@
     \newtheorem{theorem}{定理}[section] %
     \newtheorem{lemma}[theorem]{引理} %
     \newtheorem{proposition}[theorem]{命题} %
+    \newtheorem{property}[theorem]{性质}
     \newtheorem*{corollary}{推论} %
     \theoremstyle{definition} %
     \newtheorem{definition}{定义}[section] %
@@ -255,45 +256,32 @@
     \renewcommand{\algorithmicrequire}{\textbf{输入：}}
     \renewcommand{\algorithmicensure}{\textbf{输出：}}
     
-    \newcommand{\crefrangeconjunction}{到}
-    \newcommand{\crefpairconjunction}{和}
-    \newcommand{\crefmiddleconjunction}{，}
-    \newcommand{\creflastgroupconjunction}{和}
+    \newcommand{\crefrangeconjunction}{~到~}
+    \newcommand{\crefpairconjunction}{~和~}
+    \newcommand{\crefmiddleconjunction}{、}
+    \newcommand{\creflastconjunction}{~和~}
+    \newcommand{\crefpairgroupconjunction}{~和~}
+    \newcommand{\crefmiddlegroupconjunction}{、}
+    \newcommand{\creflastgroupconjunction}{~和~}
 
-    \crefformat{definition}{\bf{定义#2#1#3}}
-    \crefrangeformat{definition}{\bf{定义#3#1#4}到\bf{#5#2#6}}
-    \crefmultiformat{definition}{\bf{定义#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
-    \crefrangemultiformat{definition}{\bf{定义#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
+    \crefname{equation}{式}{式}
+    \crefname{figure}{图}{图}
+    \crefname{table}{表}{表}
+    \crefname{theorem}{定理}{定理}
+    \crefname{lemma}{引理}{引理}
+    \crefname{proposition}{命题}{命题}
+    \crefname{corollary}{推论}{推论}
+    \crefname{property}{性质}{性质}
+    \crefname{definition}{定义}{定义}
+    \crefname{conjecture}{猜想}{猜想}
+    \crefname{example}{例}{例}
+    \crefname{appendix}{附录}{附录}
+    \crefname{algorithm}{算法}{算法}
+    
+    \crefname{chapter}{章}{章}
+    \crefname{section}{节}{节}
+    \crefname{subsection}{小节}{小节}
 
-    \crefformat{theorem}{\bf{定理#2#1#3}}
-    \crefrangeformat{theorem}{\bf{定理#3#1#4}到\bf{#5#2#6}}
-    \crefmultiformat{theorem}{\bf{定理#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
-    \crefrangemultiformat{theorem}{\bf{定理#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
-
-    \crefformat{lemma}{\bf{引理#2#1#3}}
-    \crefrangeformat{lemma}{\bf{引理#3#1#4}到\bf{#5#2#6}}
-    \crefmultiformat{lemma}{\bf{引理#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
-    \crefrangemultiformat{lemma}{\bf{引理#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
-
-    \crefformat{algorithm}{\bf{算法#2#1#3}}
-    \crefrangeformat{algorithm}{\bf{算法#3#1#4}到\bf{#5#2#6}}
-    \crefmultiformat{algorithm}{\bf{算法#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
-    \crefrangemultiformat{algorithm}{\bf{算法#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
-
-    \crefformat{equation}{\bf{式#2#1#3}}
-    \crefrangeformat{equation}{\bf{式#3#1#4}到\bf{#5#2#6}}
-    \crefmultiformat{equation}{\bf{式#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
-    \crefrangemultiformat{equation}{\bf{式#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
-
-    \crefformat{figure}{\bf{图#2#1#3}}
-    \crefrangeformat{figure}{\bf{图#3#1#4}到\bf{#5#2#6}}
-    \crefmultiformat{figure}{\bf{图#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
-    \crefrangemultiformat{figure}{\bf{图#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
-
-    \crefformat{table}{\bf{表#2#1#3}}
-    \crefrangeformat{table}{\bf{表#3#1#4}到\bf{#5#2#6}}
-    \crefmultiformat{table}{\bf{表#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
-    \crefrangemultiformat{table}{\bf{表#2#1#3}}{和\bf{#2#1#3}}{，\bf{#2#1#3}}{ 和\bf{#2#1#3}}
 }{\relax}
 
 % 设置英文环境名称
