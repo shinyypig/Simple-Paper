@@ -15,7 +15,7 @@
 \DeclareVoidOption{cn}{\skv{lang=cn}}
 \DeclareVoidOption{en}{\skv{lang=en}}
 
-% 获取中文字体参数，默认founder
+% 获取中文字体参数，默认ctexfont
 \DeclareStringOption[ctexfont]{chinesefont}
 \DeclareVoidOption{ctexfont}{\skv{chinesefont=ctexfont}}
 \DeclareVoidOption{founder}{\skv{chinesefont=founder}}
@@ -65,23 +65,23 @@
 \RequirePackage{algorithmic}
 \RequirePackage{listings}
 \lstdefinestyle{estyle}{
-  basicstyle=%
+    basicstyle=%
     \ttfamily
     \lst@ifdisplaystyle\footnotesize\fi
 }
 \lstset{basicstyle=\scriptsize\ttfamily,style=estyle}
 \lstset{language=[LaTeX]TeX,
-	texcsstyle=*\color{winered},
-	numbers=none,
-	breaklines=true,
-	keywordstyle=\color{winered},
-	frame=tlbr,framesep=4pt,framerule=0pt,
-	commentstyle=\color{commentcolor},
-	emph={elegantpaper,fontenc,fontspec,xeCJK,FiraMono,xunicode,newtxmath,figure,fig,image,img,table,itemize,enumerate,newtxtext,newtxtt,ctex,microtype,description,times,newtx,booktabs,tabular,PDFLaTeX,XeLaTeX,type1cm,BibTeX,cite,gbt7714,lang},
-	emphstyle={\color{frenchplum}},
-	morekeywords={DeclareSymbolFont,SetSymbolFont,toprule,midrule,bottomrule,institute,version,includegraphics,setmainfont,setsansfont,setmonofont ,setCJKmainfont,setCJKsansfont,setCJKmonofont,RequirePackage,figref,tabref,email,maketitle,keywords,zhdate,zhtoday},
-	tabsize=2,
-	backgroundcolor=\color{lightgrey}
+    texcsstyle=*\color{winered},
+    numbers=none,
+    breaklines=true,
+    keywordstyle=\color{winered},
+    frame=tlbr,framesep=4pt,framerule=0pt,
+    commentstyle=\color{commentcolor},
+    emph={elegantpaper,fontenc,fontspec,xeCJK,FiraMono,xunicode,newtxmath,figure,fig,image,img,table,itemize,enumerate,newtxtext,newtxtt,ctex,microtype,description,times,newtx,booktabs,tabular,PDFLaTeX,XeLaTeX,type1cm,BibTeX,cite,gbt7714,lang},
+    emphstyle={\color{frenchplum}},
+    morekeywords={DeclareSymbolFont,SetSymbolFont,toprule,midrule,bottomrule,institute,version,includegraphics,setmainfont,setsansfont,setmonofont ,setCJKmainfont,setCJKsansfont,setCJKmonofont,RequirePackage,figref,tabref,email,maketitle,keywords,zhdate,zhtoday},
+    tabsize=2,
+    backgroundcolor=\color{lightgrey}
 }
 
 % 摘要，附录
@@ -112,9 +112,9 @@
 
 % 设置引用格式
 \RequirePackage[
-    backend=\SIMPLE@bibend, 
-    citestyle=\SIMPLE@citestyle, 
-    bibstyle=\SIMPLE@bibstyle, 
+    backend=\SIMPLE@bibend,
+    citestyle=\SIMPLE@citestyle,
+    bibstyle=\SIMPLE@bibstyle,
 ]{biblatex}
 \defbibheading{simplepaper}[\ebibname]{
     \section*{#1}
@@ -128,23 +128,23 @@
 % 设置链接格式
 \RequirePackage{hyperref}
 \hypersetup{
-  pdfborder={0 0 0},
-  colorlinks=true,
-  linkcolor={HEYELV},
-  urlcolor={YEHUI},
-  filecolor={DANQINZI},
-  citecolor={YOULAN},
-  linktoc=all,
+    pdfborder={0 0 0},
+    colorlinks=true,
+    linkcolor={HEYELV},
+    urlcolor={YEHUI},
+    filecolor={DANQINZI},
+    citecolor={YOULAN},
+    linktoc=all,
 }
 
 % 设置页面大小边距等
 \RequirePackage[
-  left=1in,
-  right=1in,
-  top=1in,
-  bottom=1in,
-  headheight=0pt,
-  headsep=0pt]{geometry}
+    left=1in,
+    right=1in,
+    top=1in,
+    bottom=1in,
+    headheight=0pt,
+    headsep=0pt]{geometry}
 \setlength{\headsep}{5pt}
 \setlength{\parindent}{4em}
 \setlength{\parskip}{0.5em}
@@ -160,20 +160,20 @@
 
 % 设置字体
 \ifcsname kaishu\endcsname
-  \newcommand{\citshape}{\kaishu}
+    \newcommand{\citshape}{\kaishu}
 \else
-  \newcommand{\citshape}{\itshape}
+    \newcommand{\citshape}{\itshape}
 \fi
 \ifcsname kaishu\endcsname
-  \newcommand{\cnormal}{\kaishu}
+    \newcommand{\cnormal}{\kaishu}
 \else
-  \newcommand{\cnormal}{\normalfont}
+    \newcommand{\cnormal}{\normalfont}
 \fi
 
 \ifcsname fangsong\endcsname
-  \newcommand{\cfs}{\fangsong}
+    \newcommand{\cfs}{\fangsong}
 \else
-  \newcommand{\cfs}{\normalfont}
+    \newcommand{\cfs}{\normalfont}
 \fi
 
 % 判断是否显示行号
@@ -189,7 +189,8 @@
 
 % 设置中文字体
 \ifdefstring{\SIMPLE@lang}{cn}{
-  \ifdefstring{\SIMPLE@chinesefont}{founder}{
+    \renewcommand{\today}{\number\year 年 \number\month 月 \number\day 日}
+    \ifdefstring{\SIMPLE@chinesefont}{founder}{
         \RequirePackage[UTF8,scheme=plain,fontset=none]{ctex}
         \setCJKmainfont[BoldFont={FZHei-B01},ItalicFont={FZKai-Z03}]{FZShuSong-Z01}
         \setCJKsansfont[BoldFont={FZHei-B01}]{FZKai-Z03}
@@ -202,9 +203,8 @@
         \newcommand*{\heiti}{\CJKfamily{zhhei}}
         \newcommand*{\kaishu}{\CJKfamily{zhkai}}
         \newcommand*{\fangsong}{\CJKfamily{zhfs}}
-        \renewcommand{\today}{\number\year 年 \number\month 月 \number\day 日}
     }{\relax}
-    
+
     \ifdefstring{\SIMPLE@chinesefont}{nofont}{
         \RequirePackage[UTF8,scheme=plain,fontset=none]{ctex}
     }{\relax}
@@ -213,9 +213,9 @@
         \PassOptionsToPackage{quiet}{xeCJK}
         \RequirePackage[UTF8,scheme=plain]{ctex}
     }{\relax}
-  
-  \AfterEndPreamble{
-    \setlength\parindent{2\ccwd}}
+
+    \AfterEndPreamble{
+        \setlength\parindent{2\ccwd}}
 }{\relax}
 
 
@@ -255,7 +255,7 @@
     \renewcommand{\appendixpagename}{附录}
     \renewcommand{\algorithmicrequire}{\textbf{输入：}}
     \renewcommand{\algorithmicensure}{\textbf{输出：}}
-    
+
     \newcommand{\crefrangeconjunction}{~到~}
     \newcommand{\crefpairconjunction}{~和~}
     \newcommand{\crefmiddleconjunction}{、}
@@ -277,7 +277,7 @@
     \crefname{example}{例}{例}
     \crefname{appendix}{附录}{附录}
     \crefname{algorithm}{算法}{算法}
-    
+
     \crefname{chapter}{章}{章}
     \crefname{section}{节}{节}
     \crefname{subsection}{小节}{小节}
