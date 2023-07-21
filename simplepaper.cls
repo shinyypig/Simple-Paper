@@ -37,8 +37,8 @@
 \DeclareStringOption[numeric-comp]{citestyle}
 \DeclareStringOption[numeric]{bibstyle}
 \DeclareStringOption[biber]{bibend}
-\DeclareVoidOption{biber}{\ekv{bibend=biber}}
-\DeclareVoidOption{bibtex}{\ekv{bibend=bibtex}}
+\DeclareVoidOption{biber}{\skv{bibend=biber}}
+\DeclareVoidOption{bibtex}{\skv{bibend=bibtex}}
 
 \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{article}}
 \ProcessKeyvalOptions*\relax
