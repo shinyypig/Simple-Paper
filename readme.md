@@ -11,4 +11,4 @@ Simple Paper 是我基于 [ElegantPaper](https://github.com/ElegantLaTeX/Elegant
 
 使用说明以及空白模版到[release](https://github.com/shinyypig/Simple-Paper/releases)中下载最新版`SimplePaper.pdf`和`Simple.Paper.zip`即可。
 
-推荐根据 "[在 VSCode 中配置 LaTeX 环境]" (https://github.com/shinyypig/latex-vscode-config)进行环境配置，使用 VSCode 进行编译。
+推荐根据 [「在 VSCode 中配置 LaTeX 环境」](https://github.com/shinyypig/latex-vscode-config) 进行环境配置，使用 VSCode 编译文档。
