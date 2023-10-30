@@ -52,7 +52,7 @@
 
 % 颜色
 \RequirePackage{color}
-\RequirePackage{xcolor}
+\RequirePackage[dvipsnames]{xcolor}
 \RequirePackage{framed}
 
 % 图片
@@ -98,7 +98,6 @@
 \RequirePackage[\SIMPLE@fontsize]{extsizes}
 \WarningsOn
 
-
 % 定义颜色
 \definecolor{HEYELV}{HTML}{1a6840}
 \definecolor{YEHUI}{HTML}{847c74}
@@ -121,6 +120,10 @@
     \section*{#1}
     \addcontentsline{toc}{section}{#1}
 }
+%\defbibheading{yu1999efficient}[\ebibname]{
+%    \section*{#1}
+%    \addcontentsline{toc}{section}{#1}
+%}
 \def\bibfont{\footnotesize}
 
 % 设置引用文件
@@ -157,6 +160,18 @@
 \crefname{equation}{}{}
 % 设置bm为boldsymbol
 \newcommand{\bm}[1]{\boldsymbol{#1}}
+
+% 批注
+\ifdefstring{\SIMPLE@mode}{preprint}{
+    \RequirePackage[xcolor=dvipdf,markup=default,todonotes={textsize=tiny}]{changes}
+    \setcommentmarkup{\todo[color=YEHUI!10, linecolor=black]{[\arabic{authorcommentcount}] #1}}
+    \setaddedmarkup{{\color{HEYELV}{#1}}}
+    \setdeletedmarkup{{\color{winered}{\sout{#1}}}}
+}
+
+\ifdefstring{\SIMPLE@mode}{final}{
+    \RequirePackage[final]{changes}
+}
 
 
 % 设置字体
