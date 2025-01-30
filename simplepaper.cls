@@ -110,20 +110,33 @@
 \definecolor{shadecolor}{rgb}{0.95,0.95,0.95}
 
 % 设置引用格式
-\RequirePackage[
-    backend=\SIMPLE@bibend,
-    citestyle=\SIMPLE@citestyle,
-    bibstyle=\SIMPLE@bibstyle,
-    sorting=none
-]{biblatex}
+\ifdefstring{\SIMPLE@lang}{en}{
+    \RequirePackage[
+        backend=\SIMPLE@bibend,
+        citestyle=\SIMPLE@citestyle,
+        bibstyle=\SIMPLE@bibstyle,
+        sorting=none
+    ]{biblatex}
+}
+
+\ifdefstring{\SIMPLE@lang}{cn}{
+    \RequirePackage[
+        backend=\SIMPLE@bibend,
+        citestyle=\SIMPLE@citestyle,
+        bibstyle=gb7714-2015,
+        sorting=none,
+        gbalign=left,
+        url=false,
+        doi=false,
+        eprint=false,
+    ]{biblatex}
+}
+
 \defbibheading{simplepaper}[\ebibname]{
     \section*{#1}
     \addcontentsline{toc}{section}{#1}
 }
-%\defbibheading{yu1999efficient}[\ebibname]{
-%    \section*{#1}
-%    \addcontentsline{toc}{section}{#1}
-%}
+
 \def\bibfont{\footnotesize}
 
 % 设置引用文件
