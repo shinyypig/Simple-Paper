@@ -345,3 +345,44 @@
       }{\MakeUppercase\contentsname}}
     \@starttoc{toc}
 }
+
+\RequirePackage{tikz-3dplot}
+\RequirePackage{tikzscale}
+\RequirePackage{csvsimple}
+\RequirePackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\usepgfplotslibrary{patchplots}
+\usetikzlibrary{arrows.meta,angles,quotes,calc}
+\pgfplotsset{compat=newest}
+\pgfplotsset{
+    layers/my layer set/.define layer set={
+            background,
+            main,
+            foreground
+        }{},
+    set layers=my layer set,
+}
+\usetikzlibrary{matrix,calc}
+
+\definecolor{c1}{rgb}{0, 0.4470, 0.7410}  % blue
+\definecolor{c2}{rgb}{0.8500, 0.3250, 0.0980} % red
+\definecolor{c3}{rgb}{0.9290, 0.6940, 0.1250} % yellow
+\definecolor{c4}{rgb}{0.4940, 0.1840, 0.5560} % purple
+\definecolor{c5}{rgb}{0.4660, 0.6740, 0.1880} % green
+\definecolor{c6}{rgb}{0.3010, 0.7450, 0.9330} % cyan
+\definecolor{c7}{rgb}{0.6350, 0.0780, 0.1840} % dark red
+\definecolor{c8}{RGB}{99,200,166}
+\definecolor{c9}{RGB}{72,107,135}
+\definecolor{c10}{RGB}{248,148,125}
+
+\pgfplotsset{
+    colormap={matlab}{
+            color(0cm)=(c1)
+            color(1cm)=(c2)
+            color(2cm)=(c3)
+            color(3cm)=(c4)
+            color(4cm)=(c5)
+            color(5cm)=(c6)
+            color(6cm)=(c7)
+        },
+}
